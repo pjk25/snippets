@@ -4,6 +4,8 @@
 (defn fnfrom [from flights]
   (filter (fn [f] (not (= from (f :from)))) flights))
 
+(declare itinerary)
+
 (defn route [to other af]
   (let [n (itinerary (af :to) to other)]
     (if (empty? n)
@@ -22,8 +24,23 @@
 
 (itinerary :lax :phl [{:from :lax :to :phl}])
 
-(itinerary :lax :phl [{:from :lax :to :jfk} {:from :jfk :to :phl}])
+(pprint
+  (itinerary :lax :phl [{:from :lax :to :jfk} {:from :jfk :to :phl}]))
 
-(itinerary :lax :phl [{:from :lax :to :jfk} {:from :jfk :to :chi} {:from :chi :to :phl}])
+(pprint
+  (itinerary :lax :phl [{:from :lax :to :jfk} {:from :jfk :to :chi} {:from :chi :to :phl}]))
 
-(itinerary :lax :phl [{:from :lax :to :jfk} {:from :jfk :to :phl} {:from :jfk :to :chi}])
+(pprint
+  (itinerary :lax :phl [{:from :lax :to :jfk} {:from :jfk :to :phl} {:from :jfk :to :chi}]))
+
+(pprint
+  (itinerary :lax :phl [{:from :lax :to :jfk}
+                        {:from :jfk :to :phl}
+                        {:from :jfk :to :chi}
+                        {:from :lax :to :phl}]))
+
+(pprint
+  (itinerary :lax :phl [{:from :lax :to :chi}
+                        {:from :chi :to :jfk}
+                        {:from :jfk :to :phl}
+                        {:from :chi :to :phl}]))
